@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <h1>MovieLand</h1>
+      <h1>MovieHub</h1>
 
       <div className="search">
         <input
@@ -41,12 +41,12 @@ const App = () => {
       {movies?.length>0 ?(
         <div className="container">
             {movies.map((movie) =>(
-                <MovieCard movie={movie}/>
+                <MovieCard  key={movie.imdbID} movie={movie}/>
             ))}
         </div>
       ):(
         <div className="empty">
-            <h2>No movies found</h2>
+            <h2>No movies</h2>
         </div>
       )}
       
