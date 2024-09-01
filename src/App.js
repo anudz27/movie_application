@@ -1,24 +1,46 @@
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-const API_URL = "http://www.omdbapi.com?apikey=cf3e64b0";
+import MovieCard from "./MovieCard";
+import SearchIcon from "./search.svg";
+import "./App.css";
+
+const API_URL = "http://www.omdbapi.com?apikey=b6003d8a";
 
 const App = () => {
-  const searchMovies = async (title) => {
-    try {
-      const response = await fetch(`${API_URL}&s=${title}`);
-      const data = await response.json();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [movies, setMovies] = useState([]);
 
-      console.log(data.Search);
-    } catch (error) {
-      console.error("Error fetching movies:", error); 
-    }
-  };
-  
   useEffect(() => {
-    searchMovies('Spiderman');
+    searchMovies("Batman");
   }, []);
 
-  return <h1>App</h1>;
+  const searchMovies = async (title) => {
+    const response = await fetch(`${API_URL}&s=${title}`);
+    const data = await response.json();
+
+    setMovies(data.Search);
+  };
+
+  return (
+    <div className="app">
+      <h1>MovieLand</h1>
+
+      <div className="search">
+        <input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search for movies"
+        />
+        <img
+          src={SearchIcon}
+          alt="search"
+          onClick={() => searchMovies(searchTerm)}
+        />
+      </div>
+
+      
+    </div>
+  );
 };
 
 export default App;
